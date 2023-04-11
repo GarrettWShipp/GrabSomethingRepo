@@ -16,6 +16,9 @@ public class playerMovement : MonoBehaviour
 
     private Vector3 CurrentForceVelocity;
 
+    bool IsGrounded;
+    private int JumpCounter;
+
 
     void Start()
     {
@@ -47,12 +50,15 @@ public class playerMovement : MonoBehaviour
         Controller.Move(CurrentMoveVelocity * Time.deltaTime);
 
         Ray groundCheckRay = new Ray(transform.position, Vector3.down);
-        if (Physics.Raycast(groundCheckRay, .1f))
+        
+        if (Physics.Raycast(groundCheckRay, .12f))
         {
+            Debug.Log("ground");
             CurrentForceVelocity.y = -2f;
             if (Input.GetKey(KeyCode.Space))
             {
                 CurrentForceVelocity.y = Jumpstrength;
+
             }
         }
         else
@@ -61,5 +67,6 @@ public class playerMovement : MonoBehaviour
         }
 
         Controller.Move(CurrentForceVelocity * Time.deltaTime);
+
     }
 }
